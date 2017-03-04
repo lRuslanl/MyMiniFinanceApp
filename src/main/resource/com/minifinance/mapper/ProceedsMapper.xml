@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minifinance.mapper.ProceedsMapper">
+
+    <cache />
+  
+    <resultMap type="Proceeds" id="ProceedsMap" autoMapping="true">
+        <id property="id" column="id"/>
+    </resultMap>
+   
+    <select id="selectOne" resultMap="ProceedsMap">
+        SELECT * from "Proceeds" WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="ProceedsMap" resultType="List" >
+        SELECT * FROM "Proceeds"
+    </select>
+
+    <update id="update" parameterType="Proceeds">
+        UPDATE "Proceeds"
+        SET 
+        value=#{value}, 
+        date=#{date}, 
+        description=#{description}, 
+        WHERE id =#{id}
+    </update>
+
+    <insert id="insert" parameterType="Proceeds" useGeneratedKeys="true">
+        INSERT into "Proceeds"(value, date, description) 
+        VALUES(#{value}, #{date}, #{description})
+    </insert>
+  
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM "Proceeds" WHERE id =#{id}
+    </delete>
+
+</mapper>

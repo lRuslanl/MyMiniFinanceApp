@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.minifinance.mapper.ConsuptionMapper">
+
+    <cache />
+  
+    <resultMap type="Consuption" id="ConsuptionMap" autoMapping="true">
+        <id property="id" column="id"/>
+    </resultMap>
+   
+    <select id="selectOne" resultMap="ConsuptionMap">
+        SELECT * from "Consuption" WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="ConsuptionMap" resultType="List" >
+        SELECT * FROM "Consuption"
+    </select>
+
+    <update id="update" parameterType="Consuption">
+        UPDATE "Consuption"
+        SET 
+        value=#{value}, 
+        date=#{date}, 
+        description=#{description}, 
+        WHERE id =#{id}
+    </update>
+
+    <insert id="insert" parameterType="Consuption" useGeneratedKeys="true">
+        INSERT into "Consuption"(value, date, description) 
+        VALUES(#{value}, #{date}, #{description})
+    </insert>
+  
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM "Consuption" WHERE id =#{id}
+    </delete>
+
+</mapper>
