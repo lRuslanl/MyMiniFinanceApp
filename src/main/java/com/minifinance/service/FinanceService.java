@@ -6,21 +6,20 @@
 package com.minifinance.service;
 
 import java.util.List;
-import com.minifinance.domain.Consuption;
-import com.minifinance.mapper.ConsuptionMapper;
+import com.minifinance.domain.Finance;
+import com.minifinance.mapper.FinanceMapper;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
 
-public class ConsuptionService {
-    private ConsuptionMapper consuptionMapper;
+public class FinanceService {
+    private FinanceMapper consuptionMapper;
 
     @Transactional
-    public void save(Consuption object) {
+    public void save(Finance object) {
         consuptionMapper.insert(object);
     }
 
     @Transactional
-    public void update(Consuption object) {
+    public void update(Finance object) {
         consuptionMapper.update(object);
     }
 
@@ -29,19 +28,19 @@ public class ConsuptionService {
         consuptionMapper.delete(id);
     }
 
-    public Consuption get(Integer id) {
+    public Finance get(Integer id) {
         return consuptionMapper.selectOne(id);
     }
 
-    public List<Consuption> getAll() {
+    public List<Finance> getAll() {
         return consuptionMapper.selectAll();
     }
 
-    public ConsuptionMapper getFinanceMapper() {
+    public FinanceMapper getFinanceMapper() {
         return consuptionMapper;
     }
 
-    public void setFinanceMapper(ConsuptionMapper proceedsMapper) {
+    public void setFinanceMapper(FinanceMapper proceedsMapper) {
         this.consuptionMapper = proceedsMapper;
     }
 }

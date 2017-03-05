@@ -8,7 +8,7 @@ package com.minifinance.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Proceeds implements Serializable {
+public class Proceeds implements Serializable, Finance{
     private Integer id;
     private float value;
     private Date date;
@@ -27,34 +27,42 @@ public class Proceeds implements Serializable {
         this.date = date;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
+    @Override
     public float getValue() {
         return value;
     }
 
+    @Override
     public void setValue(float value) {
         this.value = value;
     }
 
+    @Override
     public Date getDate() {
         return date;
     }
 
+    @Override
     public void setDate(Date date) {
         this.date = date;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }

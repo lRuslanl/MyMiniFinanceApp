@@ -2,14 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.minifinance.mapper.ProceedsMapper">
+<mapper namespace="com.minifinance.mapper.FinanceMapper">
 
     <cache />
   
-    <resultMap type="Proceeds" id="ProceedsMap" autoMapping="true">
-        <id property="id" column="id"/>
-    </resultMap>
-   
     <select id="selectOne" resultMap="ProceedsMap">
         SELECT * from "Proceeds" WHERE id = #{id}
     </select>

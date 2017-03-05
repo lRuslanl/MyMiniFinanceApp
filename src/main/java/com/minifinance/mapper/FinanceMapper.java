@@ -5,19 +5,21 @@
  */
 package com.minifinance.mapper;
 
+import com.minifinance.domain.Finance;
 import java.util.List;
-import com.minifinance.domain.Consuption;
 
-public interface ConsuptionMapper {
-    
-    Consuption selectOne(int id);
+/**
+ *
+ * @author Бабаджанов
+ */
+public interface FinanceMapper {
+    Finance selectOne(int id);
 
-    List<Consuption> selectAll();
+    List<Finance> selectAll();
 
-    void insert(Consuption finance);
+    void insert(Finance finance);
 
-    void update(Consuption finance);
+    void update(Finance finance);
 
     void delete(int id);
-    
 }
