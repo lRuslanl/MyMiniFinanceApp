@@ -6,6 +6,9 @@
 package com.minifinance.controller;
 
 import com.minifinance.domain.Consuption;
+import com.minifinance.domain.Proceeds;
+import com.minifinance.logic.Computation;
+import com.minifinance.service.ConsuptionService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -15,37 +18,33 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.minifinance.domain.Finance;
-import com.minifinance.domain.Proceeds;
-import com.minifinance.logic.Computation;
-import com.minifinance.service.FinanceService;
 
 @Component
 @ManagedBean
-public class FinanceController {
+public class ConsuptionController {
     @Autowired
     Computation computation;
     @Autowired
-    FinanceService financeService;
+    ConsuptionService financeService;
 
-    Finance selectedFinance;
+    Consuption selectedFinance;
 
-    public List<Finance> getConsuption() {
+    public List<Consuption> getConsuption() {
         return financeService.getAll();
     }
 
-    public Finance getSelectedConsuption() {
+    public Consuption getSelectedConsuption() {
         return selectedFinance;
     }
 
-    public void setSelectedConsuption(Finance selectedFinance) {
+    public void setSelectedConsuption(Consuption selectedFinance) {
         this.selectedFinance = selectedFinance;
     }
 
-    public List<Finance> getConsuptionIncomes() {
-        List<Finance> temp = financeService.getAll();
-        List<Finance> result = new ArrayList<>();
-        for (Finance finance : temp) {
+    public List<Consuption> getFinanceIncomes() {
+        List<Consuption> temp = financeService.getAll();
+        List<Consuption> result = new ArrayList<>();
+        for (Consuption finance : temp) {
             if (finance.getValue() > 0) {
                 result.add(finance);
             }
@@ -53,10 +52,10 @@ public class FinanceController {
         return result;
     }
 
-    public List<Finance> getFinanceOutcomes() {
-        List<Finance> temp = financeService.getAll();
-        List<Finance> result = new ArrayList<>();
-        for (Finance finance : temp) {
+    public List<Consuption> getFinanceOutcomes() {
+        List<Consuption> temp = financeService.getAll();
+        List<Consuption> result = new ArrayList<>();
+        for (Consuption finance : temp) {
             if (finance.getValue() < 0) {
                 result.add(finance);
             }
@@ -87,21 +86,17 @@ public class FinanceController {
         }
     }
 
-    public String prepareCreateProceeds() {
-        selectedFinance = new Proceeds();
-        return "faces/createProceeds";
-    }
-    
-    public String prepareCreateConsuption() {
+     
+    public String prepareCreate() {
         selectedFinance = new Consuption();
         return "faces/createConsuption";
     }
 
-    public Finance getFinance(java.lang.Integer id) {
+    public Consuption getFinance(java.lang.Integer id) {
         return financeService.get(id);
     }
 
-    @FacesConverter(forClass = Finance.class)
+    @FacesConverter(forClass = Consuption.class)
     public static class FinanceControllerConverter implements Converter {
 
         @Override
@@ -109,7 +104,7 @@ public class FinanceController {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            FinanceController controller = (FinanceController) facesContext.getApplication().getELResolver().
+            ConsuptionController controller = (ConsuptionController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "financeController");
             return controller.getFinance(getKey(value));
         }
@@ -131,11 +126,11 @@ public class FinanceController {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Finance) {
-                Finance o = (Finance) object;
+            if (object instanceof Consuption) {
+                Consuption o = (Consuption) object;
                 return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Finance.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Consuption.class.getName());
             }
         }
 

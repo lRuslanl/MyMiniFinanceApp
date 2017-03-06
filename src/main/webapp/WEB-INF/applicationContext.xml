@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd" default-autowire="byName">
+     <properties resource="/src/main/resource/config.properties"> 
+    </properties>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${db.driver}"/> 
+        <property name="url" value="${db.url}"/> 
+        <property name="username" value="${db.username}"/> 
+        <property name="password" value="${db.password}"/> 
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean> 
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="org.mybatis.jpetstore.domain" />
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+    
+    <bean id="financeService" class="com.minifinance.service.FinanceService">
+        <property name="financeMapper" ref="financeMapper"/> 
+    </bean>
+          
+    <bean id="financeMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.minifinance.mapper.FinanceMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+       
+    <context:component-scan base-package="com.minifinance.logic" />
+    <context:component-scan base-package="com.minifinance.controller" />
+    <context:annotation-config/>
+</beans>

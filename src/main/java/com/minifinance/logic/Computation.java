@@ -7,24 +7,24 @@ package com.minifinance.logic;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
-import com.minifinance.domain.Finance;
+import com.minifinance.domain.Consuption;
 
 
 @Component
 public class Computation {
     
-    public float saldo(List<Finance> finances) {
+    public float saldo(List<Consuption> finances) {
         float res = 0;
-        for (Finance finance : finances) {
+        for (Consuption finance : finances) {
             res += finance.getValue();
         }
         return res;
     }
 
-    public float avgIncome(List<Finance> finances) {
+    public float avgIncome(List<Consuption> finances) {
         float res = 0;
         float count = 0;
-        for (Finance finance : finances) {
+        for (Consuption finance : finances) {
             if (finance.getValue() > 0) {
                 count++;
                 res += finance.getValue();
@@ -32,10 +32,10 @@ public class Computation {
         }
         return res/count;
     }
-    public float avgOutgo(List<Finance> finances) {
+    public float avgOutgo(List<Consuption> finances) {
         float res = 0;
         float count = 0;
-        for (Finance finance : finances) {
+        for (Consuption finance : finances) {
             if (finance.getValue() < 0) {
                 count++;
                 res += finance.getValue();

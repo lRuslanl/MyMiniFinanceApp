@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+
+            <ui:define name="content">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="value" for="value" />
+                        <h:inputText id="value" value="#{financeController.selectedFinance.value}" title="value" required="true" requiredMessage="need value"/>
+                        <h:outputLabel value="date" for="date" />
+                        <h:inputText id="date" value="#{financeController.selectedFinance.date}" title="date" required="true" requiredMessage="need date">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:inputText>
+                        <h:outputLabel value="description" for="description" />
+                        <h:inputText id="description" value="#{financeController.selectedFinance.description}" title="description" />
+
+                        <f:selectItems value="#{financeController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <br />
+                    <h:commandLink action="#{financeController.create}" value="Save" />
+                    <br />
+                    <br />
+                    <h:link outcome="/index" value="Cancel"/>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="footer"/>
+        </ui:composition>
+
+    </body>
+</html>
